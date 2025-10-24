@@ -145,24 +145,38 @@ const App = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Volume molto basso
-    audio.volume = 0.05;
+    audio.volume = 0; // parte silenzioso
+    audio.loop = true;
 
-    // 🔊 Prova a far partire subito la musica
     const tryAutoplay = async () => {
       try {
         await audio.play();
+        console.log("Autoplay riuscito!");
         setStarted(true);
+
+        // 🔊 Graduale aumento volume dopo 1s
+        setTimeout(() => {
+          let v = 0;
+          const fade = setInterval(() => {
+            if (v < 0.05) {
+              v += 0.005;
+              audio.volume = v;
+            } else {
+              clearInterval(fade);
+            }
+          }, 200);
+        }, 1000);
       } catch (err) {
-        console.warn("Autoplay bloccato dal browser, aspetta un click:", err);
+        console.warn("Autoplay bloccato, aspetta un click:", err);
       }
     };
+
     tryAutoplay();
 
-    // Se l’autoplay è bloccato → parte al primo click
     const handleUserClick = async () => {
       if (!started && audio) {
         try {
+          audio.volume = 0.05;
           await audio.play();
           setStarted(true);
         } catch (err) {
@@ -186,7 +200,6 @@ const App = () => {
           <audio
             ref={audioRef}
             src="/sounds/halloweenxsingularity.mp3"
-            loop
             preload="auto"
           />
 
@@ -198,6 +211,7 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
 
 
 export default App;
