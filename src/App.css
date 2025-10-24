@@ -26,6 +26,15 @@
     transform: rotate(360deg);
   }
 }
+@keyframes fadeOutSmooth {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.animate-fade-out {
+  animation: fadeOutSmooth 6s ease-out forwards;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
