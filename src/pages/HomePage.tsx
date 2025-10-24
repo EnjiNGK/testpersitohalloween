@@ -15,15 +15,7 @@ const HomePage = () => {
   }, []);
 
   const navigate = useNavigate();
-const [showHalloweenText, setShowHalloweenText] = useState(true);
 
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setShowHalloweenText(false);
-  }, 6000); // 6 secondi
-
-  return () => clearTimeout(timer);
-}, []);
 
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services-section');
@@ -43,11 +35,6 @@ useEffect(() => {
       {/* Hero Section with SEO optimized content */}
       <section className="pt-32 pb-20 relative min-h-screen flex items-center">
         <ImmersiveBackground variant="default" showParticles={true} showNoise={true} />
-{showHalloweenText && (
-  <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 z-[60] text-orange-400 text-sm sm:text-base font-medium opacity-80 pointer-events-none select-none text-center drop-shadow-[0_0_5px_rgba(255,140,0,0.5)] transition-opacity duration-1000 ease-in-out animate-fade-out">
-    🎃 Clicca ovunque per attivare la musica di Halloween
-  </div>
-)}
 
 
         {/* 🎃 Decorazioni Halloween nella Hero */}
