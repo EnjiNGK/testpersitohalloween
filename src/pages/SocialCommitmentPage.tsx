@@ -149,10 +149,16 @@ const SocialCommitmentPage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto animate-fade-in scroll-animate">
             <div className="text-6xl sm:text-8xl text-green-500 mb-8 opacity-30">"</div>
-            <blockquote className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-8 leading-relaxed">
-              Crediamo in un futuro dove la tecnologia non lascia indietro nessuno. E 
-              lo costruiamo ogni giorno, insieme.
-            </blockquote>
+          <blockquote className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-8 leading-relaxed">
+  Crediamo in un{" "}
+  <Link
+    to="/secret"
+    className="underline decoration-dotted text-green-500 hover:text-green-400 transition-colors"
+  >
+    futuro
+  </Link>{" "}
+  dove la tecnologia non lascia indietro nessuno. E lo costruiamo ogni giorno, insieme.
+</blockquote>
             <div className="text-6xl sm:text-8xl text-green-500 opacity-30 transform rotate-180">"</div>
           </div>
         </div>
