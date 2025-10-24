@@ -133,26 +133,40 @@ const AppRoutes = () => (
 const App = () => {
   // ✅ Imposta Halloween come tema predefinito
   useEffect(() => {
-    // Rimuove eventuali altri temi attivi
     document.documentElement.classList.remove("light", "dark");
-
-    // Applica il tema Halloween
     document.documentElement.classList.add("halloween");
     localStorage.setItem("theme", "halloween");
   }, []);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [started, setStarted] = useState(false);
 
-  // Avvia la musica al primo click
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Volume molto basso
+    audio.volume = 0.05;
+
+    // 🔊 Prova a far partire subito la musica
+    const tryAutoplay = async () => {
+      try {
+        await audio.play();
+        setStarted(true);
+      } catch (err) {
+        console.warn("Autoplay bloccato dal browser, aspetta un click:", err);
+      }
+    };
+    tryAutoplay();
+
+    // Se l’autoplay è bloccato → parte al primo click
     const handleUserClick = async () => {
-      if (audioRef.current && !started) {
+      if (!started && audio) {
         try {
-          audioRef.current.volume = 0.2; // volume basso
-          await audioRef.current.play();
+          await audio.play();
           setStarted(true);
         } catch (err) {
-          console.warn("Riproduzione bloccata dal browser:", err);
+          console.warn("Riproduzione ancora bloccata:", err);
         }
       }
     };
@@ -167,14 +181,15 @@ const App = () => {
         <ThemeProvider>
           <Toaster />
           <Sonner />
-          
-        {/* 🔊 Musica di Halloween */}
-        <audio
-          ref={audioRef}
-          src="/sounds/halloweenxsingularity.mp3"
-          loop
-          preload="auto"
-        />
+
+          {/* 🔊 Musica di Halloween */}
+          <audio
+            ref={audioRef}
+            src="/sounds/halloweenxsingularity.mp3"
+            loop
+            preload="auto"
+          />
+
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
@@ -183,5 +198,6 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
 
 export default App;

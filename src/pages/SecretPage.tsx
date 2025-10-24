@@ -51,7 +51,7 @@ const SecretPage = () => {
               vincere <span className="text-orange-400 font-semibold">fantastici premi!</span>
             </p>
             <a
-              href="https://www.instagram.com/singularitydream.it/"
+              href="https://www.instagram.com/singularity__project/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-black font-bold rounded-full shadow-[0_0_15px_rgba(255,120,0,0.6)] transition-transform hover:scale-105"
