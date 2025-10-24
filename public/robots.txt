@@ -1,0 +1,21 @@
+
+User-agent: *
+Allow: /
+
+# Blocca eventuali directory admin o private (se esistessero)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://singularitydream.it/sitemap.xml
+
+# Crawl delay per essere rispettosi
+Crawl-delay: 1
+
+# Blocca bot specifici se necessario
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot  
+Crawl-delay: 10
