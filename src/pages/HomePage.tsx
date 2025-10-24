@@ -22,6 +22,10 @@ const HomePage = () => {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+{/* 🎃 Messaggio Halloween in cima */}
+<div className="w-full text-center text-orange-500 text-sm py-1 fixed top-0 z-50 pointer-events-none">
+  🎃 Clicca ovunque per attivare la musica di Halloween
+</div>
 
   return (
     <div className="overflow-hidden">
