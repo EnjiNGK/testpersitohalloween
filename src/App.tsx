@@ -131,7 +131,6 @@ const AppRoutes = () => (
 );
 
 const App = () => {
-  // ✅ Imposta Halloween come tema predefinito
   useEffect(() => {
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add("halloween");
@@ -141,46 +140,16 @@ const App = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [started, setStarted] = useState(false);
 
+  // Gestione musica
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.volume = 0; // parte silenzioso
-    audio.loop = true;
-
-    const tryAutoplay = async () => {
-      try {
-        await audio.play();
-        console.log("Autoplay riuscito!");
-        setStarted(true);
-
-        // 🔊 Graduale aumento volume dopo 1s
-        setTimeout(() => {
-          let v = 0;
-          const fade = setInterval(() => {
-            if (v < 0.05) {
-              v += 0.005;
-              audio.volume = v;
-            } else {
-              clearInterval(fade);
-            }
-          }, 200);
-        }, 1000);
-      } catch (err) {
-        console.warn("Autoplay bloccato, aspetta un click:", err);
-      }
-    };
-
-    tryAutoplay();
-
     const handleUserClick = async () => {
-      if (!started && audio) {
+      if (audioRef.current && !started) {
         try {
-          audio.volume = 0.05;
-          await audio.play();
+          audioRef.current.volume = 0.05; // volume bassissimo
+          await audioRef.current.play();
           setStarted(true);
         } catch (err) {
-          console.warn("Riproduzione ancora bloccata:", err);
+          console.warn("Riproduzione bloccata:", err);
         }
       }
     };
@@ -196,12 +165,20 @@ const App = () => {
           <Toaster />
           <Sonner />
 
-          {/* 🔊 Musica di Halloween */}
+          {/* 🔊 Audio di Halloween */}
           <audio
             ref={audioRef}
             src="/sounds/halloweenxsingularity.mp3"
+            loop
             preload="auto"
           />
+
+          {/* 👻 Banner “clicca per la musica” */}
+          {!started && (
+            <div className="fixed top-0 left-0 right-0 z-50 bg-orange-950/90 text-orange-300 text-center py-2 text-sm font-semibold animate-pulse shadow-md">
+              🔊 Clicca ovunque per attivare la musica di Halloween 🎃
+            </div>
+          )}
 
           <BrowserRouter>
             <AppRoutes />
@@ -211,6 +188,7 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
 
 
 
