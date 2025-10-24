@@ -22,13 +22,12 @@ const HomePage = () => {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
-{/* 🎃 Messaggio Halloween in cima */}
-<div className="w-full text-center text-orange-500 text-sm py-1 fixed top-0 z-50 pointer-events-none">
-  🎃 Clicca ovunque per attivare la musica di Halloween
-</div>
-
   return (
     <div className="overflow-hidden">
+         {/* 🎃 Testo Halloween discreto sopra a tutto */}
+      <div className="fixed top-4 right-4 z-[9999] text-orange-400 text-sm font-medium opacity-80 pointer-events-none select-none">
+        🎃 Clicca ovunque per attivare la musica di Halloween
+      </div>
       <SEOHead 
         title="Singularity Dream | Servizi digitali professionali accessibili in Italia"
         description="Grafica personalizzata, assistenza informatica e video editing di qualità. Servizi digitali professionali a prezzi accessibili in tutta Italia."
