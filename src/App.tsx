@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -140,6 +140,26 @@ const App = () => {
     document.documentElement.classList.add("halloween");
     localStorage.setItem("theme", "halloween");
   }, []);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [started, setStarted] = useState(false);
+
+  // Avvia la musica al primo click
+  useEffect(() => {
+    const handleUserClick = async () => {
+      if (audioRef.current && !started) {
+        try {
+          audioRef.current.volume = 0.2; // volume basso
+          await audioRef.current.play();
+          setStarted(true);
+        } catch (err) {
+          console.warn("Riproduzione bloccata dal browser:", err);
+        }
+      }
+    };
+
+    document.addEventListener("click", handleUserClick);
+    return () => document.removeEventListener("click", handleUserClick);
+  }, [started]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -147,6 +167,14 @@ const App = () => {
         <ThemeProvider>
           <Toaster />
           <Sonner />
+          
+        {/* 🔊 Musica di Halloween */}
+        <audio
+          ref={audioRef}
+          src="/sounds/halloweenxsingularity.mp3"
+          loop
+          preload="auto"
+        />
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
